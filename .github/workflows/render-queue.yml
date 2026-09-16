@@ -124,6 +124,14 @@ jobs:
         env:
           # sessiz açılış yok: video ilk söylenen kelimeyle başlasın
           INTRO: "0"
+          # Aynı stok klip bir videoda ikinci kez görünmesin:
+          # CUTIN_RATE 0 -> bir önceki klibi yakınlaştırıp tekrar kullanan
+          #   "cut-in" kapalı (varsayılan %22 idi; arka arkaya aynı görüntü veriyordu)
+          # BROLL_COOLDOWN çok büyük -> video boyunca kullanılan her klip havuz
+          #   tükenene kadar dışarıda kalır (varsayılan 8 idi). broll + broll2 +
+          #   ... hepsi tek havuzda, her videoya kendi tohumuyla karışık gelir.
+          CUTIN_RATE: "0"
+          BROLL_COOLDOWN: "100000"
         run: python3 scripts/assemble.py content/current/script.json
 
       - name: Videoyu indirmeye aç
